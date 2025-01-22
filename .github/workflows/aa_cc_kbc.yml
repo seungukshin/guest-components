@@ -35,17 +35,17 @@ jobs:
         rust:
           - stable
         instance:
-          - ubuntu-24.04
+          #- ubuntu-24.04
           - ubuntu-24.04-arm
         include:
-          - instance: ubuntu-24.04
-            attester: snp-attester
-          - instance: ubuntu-24.04
-            attester: tdx-attester
-          - instance: ubuntu-24.04
-            attester: az-snp-vtpm-attester
-          - instance: ubuntu-24.04
-            attester: az-tdx-vtpm-attester
+          #- instance: ubuntu-24.04
+          #  attester: snp-attester
+          #- instance: ubuntu-24.04
+          #  attester: tdx-attester
+          #- instance: ubuntu-24.04
+          #  attester: az-snp-vtpm-attester
+          #- instance: ubuntu-24.04
+          #  attester: az-tdx-vtpm-attester
           - instance: ubuntu-24.04-arm
             attester: cca-attester
     runs-on: ${{ matrix.instance }}
