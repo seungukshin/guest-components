@@ -37,7 +37,9 @@ jobs:
           - s390x
           - ubuntu-24.04-arm
         rust:
-          - stable
+          # TODO: change 1.82.0 to stable when the following issue is resolved
+          # https://github.com/rust-lang/rust/issues/135867
+          - 1.82.0
     runs-on: ${{ matrix.instance }}
     steps:
       - name: Code checkout
