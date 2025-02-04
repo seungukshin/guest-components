@@ -25,13 +25,17 @@ jobs:
   ci:
     if: github.event_name != 'push'
     name: Check
-    runs-on: ubuntu-24.04
     strategy:
       fail-fast: false
       matrix:
+        instance:
+          - ubuntu-24.04
+          - ubuntu-24.04-arm
         rust:
-          - 1.83.0
-          - stable
+          # TODO: change 1.82.0 to 1.83.0 and stable when the following issue is resolved
+          # https://github.com/rust-lang/rust/issues/135867
+          - 1.82.0
+    runs-on: ${{ matrix.instance }}
 
     steps:
       - name: Code checkout

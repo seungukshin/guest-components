@@ -32,11 +32,13 @@ jobs:
       fail-fast: false
       matrix:
         rust:
-          - 1.83.0
-          - stable
+          # TODO: change 1.82.0 to 1.83.0 and stable when the following issue is resolved
+          # https://github.com/rust-lang/rust/issues/135867
+          - 1.82.0
         instance:
           - ubuntu-24.04
-          - s390x
+          #- s390x
+          - ubuntu-24.04-arm
     runs-on: ${{ matrix.instance }}
     steps:
       - name: Code checkout
@@ -142,4 +144,4 @@ jobs:
       - name: Run cargo test - kata-cc (native-tls version) with keywrap-ttrpc (default) + keywrap-jwe + nydus
         run: |
           sudo -E PATH=$PATH -s cargo test -p image-rs --no-default-features --features=kata-cc-native-tls,keywrap-jwe,nydus
-        if: matrix.instance == 'ubuntu-24.04'
+        if: ${{ startsWith(matrix.instance, 'ubuntu-24.04') }}
