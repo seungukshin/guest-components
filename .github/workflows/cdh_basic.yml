@@ -34,9 +34,18 @@ jobs:
       matrix:
         instance:
           - ubuntu-24.04
-          - s390x
+          #- s390x
+          - ubuntu-24.04-arm
         rust:
           - stable
+        # TODO: remove include and exclude when the following issue is resolved
+        # https://github.com/rust-lang/rust/issues/135867
+        include:
+          - instance: ubuntu-24.04-arm
+            rust: 1.82.0
+        exclude:
+          - instance: ubuntu-24.04-arm
+            rust: stable
     runs-on: ${{ matrix.instance }}
     steps:
       - name: Code checkout
@@ -63,7 +72,7 @@ jobs:
       - name: Musl build
         run: |
           make LIBC=musl
-        if: matrix.instance == 'ubuntu-24.04'
+        if: ${{ startsWith(matrix.instance, 'ubuntu-24.04') }}
 
       - name: Run cargo test
         run: |
